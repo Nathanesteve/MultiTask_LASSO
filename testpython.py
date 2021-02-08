@@ -4,6 +4,6 @@ from math import factorial
 
 c = 0
 for i in range(100):
-    c = c + 1/(factorial(i))
+    c = c + 1/(factorial(i))+10
 
 print(c)
