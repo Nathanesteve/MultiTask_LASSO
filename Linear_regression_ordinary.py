@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 np.random.seed(123456789)
 n = 100
+z = 123 #add this line
 
 def uniforme( a , b ): # function uniforme sur [a,b]
     return( a + (b -a)*random())
