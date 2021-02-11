@@ -1,6 +1,7 @@
 from random import random
 import numpy as np
 import matplotlib.pyplot as plt
+
 np.random.seed(123456789)
 n = 100
 z = 123 #add this line
@@ -33,6 +34,7 @@ y_barre = np.dot(y,k)
 
 sto1 = np.zeros(n)
 sto2 = np.zeros(n)
+
 for i in range(0,n):
     sto1[i] = (u[i]-u_barre)*(y[i]-y_barre)
     sto2[i] = (u[i]-u_barre)*(u[i]-u_barre)
