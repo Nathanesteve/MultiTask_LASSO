@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%
+\section*{De l'estimateur des moindres carrés au MultiTask LASSO} \vspace{.5cm}
+%%%%%%%%%%%%%%%%%%%%%
+
+En cours de modélisation linéaire, vous allez découvrir la régression linéaire multiple :
+
+\textbf{Minimisation des moindres carrés\ :} Notre problème des moindres carrés consiste à minimiser la fonction suivante: \\
+$$ argmin_{\theta\in R^p}\ f(\theta)=\frac{1}{2} ||{y - X\theta}||_2^2
+ $$
+Pour cela nous calculons le gradient de $f$, il est donné par l'expression suivante:\\
+$$ \nabla f(x)=X^T(X \theta -y) $$
+
+\begin{align*}
+    \nabla f(x) = \begin{pmatrix}
+        \frac{\partial f}{\partial \theta_1} (\theta) \\ \vdots \\ \frac{\partial f}{\partial \theta_p} (\theta)
+    \end{pmatrix}= \begin{pmatrix}
+        x_1^T(X \theta -y) \\ \vdots \\ x_p^T(X \theta -y)
+    \end{pmatrix} =X^T(X \theta -y)
+\end{align*}
+	 
+\begin{align*}
+    \frac{\partial f}{\partial \theta_j} (\theta) = 0\Longleftrightarrow x_j^T(X \theta -y)= 0 \Longleftrightarrow x_j\theta_j + \sum_{k \ne j} x_k\theta_k - y = 0
+\end{align*}
+On cherche donc à minimiser les $\theta_j$ en fixant $\theta_k$
+
+
+Une méthode pour estimer le paramètre $\beta$ est les \textit{moindres carrés} (LeastSquares en anglais), qui mathématiquement se définit comme la solution du problème de minimisation suivant :
+
+
+
+
+\end{document}
+
