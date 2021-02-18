@@ -7,13 +7,14 @@
 \section*{De l'estimateur des moindres carrés au MultiTask LASSO} \vspace{.5cm}
 %%%%%%%%%%%%%%%%%%%%%
 
-En cours de modélisation linéaire, vous allez découvrir la régression linéaire multiple :
-
-\textbf{Minimisation des moindres carrés\ :} Notre problème des moindres carrés consiste à minimiser la fonction suivante: \\
-$$ argmin_{\theta\in R^p}\ f(\theta)=\frac{1}{2} ||{y - X\theta}||_2^2
+\textbf{Méthode des moindres carrés ordinaire.} \\
+\\ Le problème moindres carrés consiste à minimiser la fonction suivante: \\
+$$\underset{\theta\in R^p}{\mathrm{argmin}} \ f(\theta)=\frac{1}{2} {\| y - X\theta\|_2^2} \
+, \ y \in R^p,\ X \in \mathcal{M}(n,p).
  $$
-Pour cela nous calculons le gradient de $f$, il est donné par l'expression suivante:\\
-$$ \nabla f(x)=X^T(X \theta -y) $$
+ 
+La fonction $f$ étant convexe et différentiable, nous calculons le gradient de $f$ et l'annulons pour trouver son minimum global.
+Le gradient de $f$ est donné par l'expression suivante\ :
 
 \begin{align*}
     \nabla f(x) = \begin{pmatrix}
@@ -22,15 +23,15 @@ $$ \nabla f(x)=X^T(X \theta -y) $$
         x_1^T(X \theta -y) \\ \vdots \\ x_p^T(X \theta -y)
     \end{pmatrix} =X^T(X \theta -y)
 \end{align*}
+
+Soit $j \in \{1, ... ,p \}.$
 	 
 \begin{align*}
-    \frac{\partial f}{\partial \theta_j} (\theta) = 0\Longleftrightarrow x_j^T(X \theta -y)= 0 \Longleftrightarrow x_j\theta_j + \sum_{k \ne j} x_k\theta_k - y = 0
-\end{align*}
-On cherche donc à minimiser les $\theta_j$ en fixant $\theta_k$
+    \frac{\partial f}{\partial \theta_j} (\theta) = 0     &\Longleftrightarrow x_j^T(X \theta -y)= 0\\
+     &\Longleftrightarrow x_j^T(x_j\theta_j + \sum_{k \ne j} x_k\theta_k - y) = 0\\ &\Longleftrightarrow \theta_j = \frac{x_j^T(y -  \sum_{k \ne j} x_k\theta_k)}{x_j^Tx_j} \\ &\Longleftrightarrow \theta_j = \frac{x_j^T(y -  \sum_{k=1}^{p} x_k\theta_k  + x_j\theta_j)}{\| x_j\|_2^2}
+\end{align*} \\
 
-
-Une méthode pour estimer le paramètre $\beta$ est les \textit{moindres carrés} (LeastSquares en anglais), qui mathématiquement se définit comme la solution du problème de minimisation suivant :
-
+La dernière écriture de $\theta_j$ va nous permettre, par un algorithme de descente par coordonnés, d'estimer le paramètre $\theta$ solution du problème de minimisation.
 
 
 
