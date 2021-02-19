@@ -31,8 +31,12 @@ Soit $j \in \{1, ... ,p \}.$
      &\Longleftrightarrow x_j^T(x_j\theta_j + \sum_{k \ne j} x_k\theta_k - y) = 0\\ &\Longleftrightarrow \theta_j = \frac{x_j^T(y -  \sum_{k \ne j} x_k\theta_k)}{x_j^Tx_j} \\ &\Longleftrightarrow \theta_j = \frac{x_j^T(y -  \sum_{k=1}^{p} x_k\theta_k  + x_j\theta_j)}{\| x_j\|_2^2}
 \end{align*} \\
 
-La dernière écriture de $\theta_j$ va nous permettre, par un algorithme de descente par coordonnés, d'estimer le paramètre $\theta$ solution du problème de minimisation.
+La dernière écriture de $\theta_j$ va nous permettre, par un algorithme de descente par coordonnés, d'estimer le paramètre $\theta$ solution du problème de minimisation. \\
 
+L'algorithme de descente par coordonnés permet de trouver une solution approché du problème: $\underset{\theta\in R^p}{\mathrm{argmin}} \ f(\theta).$  \\
+
+Plus précisément, on transforme ce problème multidimensionnel en un problème unidimensionnel, en visitant les différentes coordonnées plusieurs fois et en les mettant à jour au fur et à mesure des itérations.\\
+Ces visites régulières permettent d'assurer la convergence de l'algorithme vers la solution du problème.
 
 
 \end{document}
