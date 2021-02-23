@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{amsfonts}
 \usepackage{amsmath}
+\usepackage[utf8]{inputenc}
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -37,6 +38,67 @@ L'algorithme de descente par coordonnés permet de trouver une solution approch�
 
 Plus précisément, on transforme ce problème multidimensionnel en un problème unidimensionnel, en visitant les différentes coordonnées plusieurs fois et en les mettant à jour au fur et à mesure des itérations.\\
 Ces visites régulières permettent d'assurer la convergence de l'algorithme vers la solution du problème.
+
+\newpage 
+
+On considère $\eta(z) = \underset{t \in R}{\mathrm{argmin}}\ \frac{1}{2} (z-t)^2 + \lambda|t| ,\ \lambda > 0\ et\ z \in R.\\ $ 
+Pour $z \in R$ , posons $f(t) = \frac{1}{2} (z-t)^2 + \lambda|t| \\ $ 
+
+On considère 3 trois cas: \\
+
+$t = 0:\ f(t) = \frac{1}{2}z^2$
+
+$t > 0:\ f(t) = \frac{1}{2}(z-t)^2 + \lambda t \\ $ 
+
+$Par\ suite,\ f'(t) = t-z+\lambda. \\
+\\ f'(t) = 0 \Longleftrightarrow t-z+ \lambda = 0\
+\Longleftrightarrow t = z- \lambda.\ Or\ t > 0,\ ce\ qui\ signifie\ que\ z- \lambda > 0~\ et\ donc\ il\ est\ necessaire\ que\ z > \lambda.\\
+\\
+De\ maniere\ analogue\ pour\ le\ cas\ t < 0,\ on\ obtient\ la\ condition\ z < -\lambda. \\ $
+\\
+Ainsi,\ on\ a:\\
+\\
+$t = \left\{
+    \begin{array}{lll}
+        0 & \mbox{si } |z| < \lambda \\
+        z - \lambda & \mbox{si } z > \lambda \\
+        z+ \lambda & \mbox{si } z < - \lambda
+    \end{array}
+\right. \\ $ \\
+
+5 cas:\\
+
+Si $z > 0$ alors: 
+$t = \left\{
+    \begin{array}{lll}
+        t = z - \lambda & \mbox{si } z > \lambda \\
+        t = 0 & \mbox{si } |z| = z < \lambda 
+    \end{array}
+\right. \\ $
+
+Si $z < 0$ alors: 
+$t = \left\{
+    \begin{array}{lll}
+        t = z + \lambda & \mbox{si } z > - \lambda \\
+        t = 0 & \mbox{si } |z| = -z < \lambda 
+    \end{array}
+\right.$
+
+Si $z = 0$ alors $t = 0$.\\
+
+En résumé:\\
+ 
+$\eta(z) = \left\{
+    \begin{array}{lll}
+        t = 0 & \mbox{si } |z| < \lambda \\
+        t = z - \lambda & \mbox{si } z > \lambda \\
+        t = z + \lambda & \mbox{si } z < - \lambda 
+    \end{array}
+\right. \\ $ \\
+
+Ce qu'on peut réécrire de manière plus condensé comme suit:
+
+$\eta(z) = max(|z| - \lambda,0)*sign(z)$
 
 
 \end{document}
