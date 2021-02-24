@@ -56,7 +56,7 @@ Ainsi on ne pourra calculer le gradient de cette fonction et devrons alors trait
 
 Pour pouvoir utiliser un algorithme de descente par coordonnés, nous allons chercher a minimiser $f$ en $\theta_j$ avec $\theta_k$ fixé, $\forall\ k \ne j$.\\
 
-Soit $j \in \{1, ... ,p \}$ et $ \hat{\theta_j} = \underset{\theta_j\in R}{\mathrm{argmin}} \ f(\theta). \\ $ 
+Soit $j \in \{1, ... ,p \}$ et $ \hat{\theta_j} = \underset{\theta_j\in R}{\mathrm{argmin}} \ f(\theta).  $ 
 
 \begin{align*}
 \hat{\theta_j} &= \underset{\theta_j\in R}{\mathrm{argmin}}     \ \frac{1}{2} \|y - \sum_{k \ne j} x_k\theta_k  - x_j\theta_j\|^2 + \lambda \sum_{k \ne j}|\theta_k| + \lambda|\theta_j| \\ &= 
@@ -76,61 +76,66 @@ Résolution du problème de minimisation.\\
 Pour $z \in R$ , posons $f(t) = \frac{1}{2} (z-t)^2 + \lambda|t| \\ $ 
 
 On considère 3 trois cas: \\
-
-$t = 0:\ f(t) = \frac{1}{2}z^2$
-
+$\\$
+$t < 0:\ f(t) = \frac{1}{2}(z-t)^2 + \lambda t \\ $ 
+\newline
+$t = 0:\ f(t) = \frac{1}{2}z^2 \\$
+\newline
 $t > 0:\ f(t) = \frac{1}{2}(z-t)^2 + \lambda t \\ $ 
 
-Par\ suite, $f'(t) = t-z+\lambda. \\ $
-$f'(t) = 0 \Longleftrightarrow t-z+ \lambda = 0\
-\Longleftrightarrow t = z- \lambda.$ Or $t > 0,$\ ce\ qui\ signifie\  que \\ $z- \lambda > 0$ \ et\ donc\ il\ est\ nécessaire\ que\ $z > \lambda.\\ $
+Pour $t>0$ on a $f'(t) = t-z+\lambda$
 
-
-De\ manière\ analogue\ pour\ le\ cas\ $t < 0,$\ on\ obtient\ la\ condition\ $z < -\lambda. \\ $
-
+$$\\ f'(t) = 0 \Longleftrightarrow t-z+ \lambda = 0\
+\Longleftrightarrow t = z- \lambda.$$\
+Or $t > 0$, ce qui signifie que $z- \lambda > 0$ et donc il est necessaire que $z > \lambda$.\\
+De maniere analogue pour le cas $t < 0$, on obtient la condition $z < -\lambda.$ \\
 Ainsi,\ on\ a:\\
 
 $t = \left\{
     \begin{array}{lll}
-        0 & \mbox{si } |z| < \lambda \\
+        0 & \mbox{si } |z| \leq \lambda \\
         z - \lambda & \mbox{si } z > \lambda \\
         z+ \lambda & \mbox{si } z < - \lambda
     \end{array}
 \right. \\ $ \\
 
-5 cas:\\
+On considère maintenant 5 cas en fonction de z:\\
 
 Si $z > 0$ alors: 
 $t = \left\{
     \begin{array}{lll}
-        t = z - \lambda & \mbox{si } z > \lambda \\
-        t = 0 & \mbox{si } |z| = z < \lambda 
+         z - \lambda & \mbox{si } z > \lambda \\
+         0 & \mbox{si }  z \leq \lambda 
     \end{array}
 \right. \\ $
+\vspace{0.5cm}
 
 Si $z < 0$ alors: 
 $t = \left\{
     \begin{array}{lll}
-        t = z + \lambda & \mbox{si } z > - \lambda \\
-        t = 0 & \mbox{si } |z| = -z < \lambda 
+         z + \lambda & \mbox{si } z > - \lambda \\
+         0 & \mbox{si }  -z \leq \lambda 
     \end{array}
 \right.$
+\vspace{0.5cm}
 
 Si $z = 0$ alors $t = 0$.\\
 
 En résumé:\\
  
-$\eta_\lambda(z) = \left\{
+$\eta(z) = \left\{
     \begin{array}{lll}
-        t = 0 & \mbox{si } |z| < \lambda \\
-        t = z - \lambda & \mbox{si } z > \lambda \\
-        t = z + \lambda & \mbox{si } z < - \lambda 
+         0 & \mbox{si } |z| \leq \lambda \\
+         z - \lambda & \mbox{si } z > \lambda \\
+         z + \lambda & \mbox{si } z < - \lambda 
     \end{array}
 \right. \\ $ \\
 
 Ce qu'on peut réécrire de manière plus condensé comme suit:
 
-$$\eta_\lambda(z) = max(|z| - \lambda,0)*sign(z)$$ \\
+$\eta(z) = max(|z| - \lambda,0)*sign(z)$
+\\
+
 
 Par conséquent:
  
