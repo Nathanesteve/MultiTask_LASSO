@@ -41,7 +41,38 @@ Ces visites régulières permettent d'assurer la convergence de l'algorithme ver
 
 \newpage 
 
-On considère $\eta(z) = \underset{t \in R}{\mathrm{argmin}}\ \frac{1}{2} (z-t)^2 + \lambda|t| ,\ \lambda > 0\ et\ z \in R.\\ $ 
+\textbf{Régression LASSO.} \\
+
+Le problème de la régression LASSO consiste à minimiser la fonction suivante: 
+
+\begin{center}
+$\underset{\theta\in R^p}{\mathrm{argmin}} \ f(\theta)=\frac{1}{2} {\| y - X\theta\|_2^2} + \ \lambda \sum_{k=1}^{p} |\theta_k|
+, \ y \in R^p,X \in \mathcal{M}(n,p),\lambda > 0.
+ $
+\end{center}
+
+La fonction $f$ est convexe mais non-différentiable car la fonction valeur absolue ne l'est pas.
+Ainsi on ne pourra calculer le gradient de cette fonction et devrons alors traiter différent cas (en fonction du signe $t$ et $z$) pour déterminer, selon les cas, l'unique minimum de $f$.\\
+
+Pour pouvoir utiliser un algorithme de descente par coordonnés, nous allons chercher a minimiser $f$ en $\theta_j$ avec $\theta_k$ fixé, $\forall\ k \ne j$.\\
+
+Soit $j \in \{1, ... ,p \}$ et $ \hat{\theta_j} = \underset{\theta_j\in R}{\mathrm{argmin}} \ f(\theta). \\ $ 
+
+\begin{align*}
+\hat{\theta_j} &= \underset{\theta_j\in R}{\mathrm{argmin}}     \ \frac{1}{2} \|y - \sum_{k \ne j} x_k\theta_k  - x_j\theta_j\|^2 + \lambda \sum_{k \ne j}|\theta_k| + \lambda|\theta_j| \\ &= 
+\frac{1}{2} \|x_j\|^2\theta_j^2 - <y - \sum_{k \ne j} x_k\theta_k,x_j>\theta_j + \lambda|\theta_j| \\ &=
+\|x_j\|^2 \big[\frac{1}{2}(\theta_j - \|x_j\|^{-2}<y - \sum_{k \ne j} x_k\theta_k,x_j>)^2 + \frac{\lambda}{\|x_j\|^2}|\theta_j|]
+\end{align*}
+
+
+On considère $\eta_\lambda(z) = \underset{t \in R}{\mathrm{argmin}}\ \frac{1}{2} (z-t)^2 + \lambda|t| ,\ \lambda > 0\ et\ z \in R.\\ $ 
+
+Nous avons donc: $\hat{\theta_j}=\eta_\frac{\lambda}{\|x_j\|^2}( \|x_j\|^{-2}<y - \sum_{k \ne j} x_k\theta_k,x_j>). \\ $
+
+Par suite, il va nous falloir résoudre le problème de minimisation suivant: $$\underset{t \in R}{\mathrm{argmin}}\ \frac{1}{2} (z-t)^2 + \lambda|t| ,\ \lambda > 0\ et\ z \in R.\\ $$
+
+Résolution du problème de minimisation.\\
+
 Pour $z \in R$ , posons $f(t) = \frac{1}{2} (z-t)^2 + \lambda|t| \\ $ 
 
 On considère 3 trois cas: \\
@@ -50,14 +81,15 @@ $t = 0:\ f(t) = \frac{1}{2}z^2$
 
 $t > 0:\ f(t) = \frac{1}{2}(z-t)^2 + \lambda t \\ $ 
 
-$Par\ suite,\ f'(t) = t-z+\lambda. \\
-\\ f'(t) = 0 \Longleftrightarrow t-z+ \lambda = 0\
-\Longleftrightarrow t = z- \lambda.\ Or\ t > 0,\ ce\ qui\ signifie\ que\ z- \lambda > 0~\ et\ donc\ il\ est\ necessaire\ que\ z > \lambda.\\
-\\
-De\ maniere\ analogue\ pour\ le\ cas\ t < 0,\ on\ obtient\ la\ condition\ z < -\lambda. \\ $
-\\
+Par\ suite, $f'(t) = t-z+\lambda. \\ $
+$f'(t) = 0 \Longleftrightarrow t-z+ \lambda = 0\
+\Longleftrightarrow t = z- \lambda.$ Or $t > 0,$\ ce\ qui\ signifie\  que \\ $z- \lambda > 0$ \ et\ donc\ il\ est\ nécessaire\ que\ $z > \lambda.\\ $
+
+
+De\ manière\ analogue\ pour\ le\ cas\ $t < 0,$\ on\ obtient\ la\ condition\ $z < -\lambda. \\ $
+
 Ainsi,\ on\ a:\\
-\\
+
 $t = \left\{
     \begin{array}{lll}
         0 & \mbox{si } |z| < \lambda \\
@@ -88,7 +120,7 @@ Si $z = 0$ alors $t = 0$.\\
 
 En résumé:\\
  
-$\eta(z) = \left\{
+$\eta_\lambda(z) = \left\{
     \begin{array}{lll}
         t = 0 & \mbox{si } |z| < \lambda \\
         t = z - \lambda & \mbox{si } z > \lambda \\
@@ -98,7 +130,22 @@ $\eta(z) = \left\{
 
 Ce qu'on peut réécrire de manière plus condensé comme suit:
 
-$\eta(z) = max(|z| - \lambda,0)*sign(z)$
+$$\eta_\lambda(z) = max(|z| - \lambda,0)*sign(z)$$ \\
+
+Par conséquent:
+ 
+\begin{align*}
+\hat{\theta_j} &= \eta_\frac{\lambda}{\|x_j\|^2}( \|x_j\|^{-2}<y - \sum_{k \ne j} x_k\theta_k,x_j>) \\
+&=  max(|\|x_j\|^{-2}<y - \sum_{k \ne j} x_k\theta_k,x_j>| -\frac{\lambda}{\|x_j\|^2},0)*sign(\|x_j\|^{-2}<y - \sum_{k \ne j} x_k\theta_k,x_j>)
+\end{align*}
+
+
+
+
+
+
+
+
 
 
 \end{document}
